@@ -1,6 +1,7 @@
 import numpy as np
 from src.variables import *
 import scipy.optimize as opt
+from src.vector_functions import normalize, calculate_magnitude
 
 # i - is number of lights
 # i = 1,2
@@ -21,6 +22,7 @@ import scipy.optimize as opt
 # u2 = (u2_1, u2_2, u2_3)
 # R
 
+
 def calculate_b_norm(o, l1, l2, u1, u2):
     """
     Calculates unit vector in the direction of the line of intersection of the planes (l1, 0, u1) and (l2, o, u2).
@@ -39,19 +41,16 @@ def calculate_b_norm(o, l1, l2, u1, u2):
     :return: unit vector in WCS
     """
 
-    # calculates (l1 - o) x (u1 - o)
-
+    # normal to the plane l1, o, u1
     l1_o_u1 = np.cross((l1 - o), (u1 - o))
 
-    # calculates (l2 - o) x (u2 - o)
+    # normal to the plane l2, o, u2
     l2_o_u2 = np.cross((l2 - o), (u2 - o))
 
+    # normal of normals :)
     b = np.cross(l1_o_u1, l2_o_u2)
 
-    b_magnitude = np.sqrt(b.dot(b))
-    bnorm = b / b_magnitude
-
-    return bnorm
+    return normalize(b)
 
 # Theory ref:
 # a dot b =  a1*b1 + a2*b2 + ... + an*bn
@@ -125,7 +124,7 @@ def equations_system(variables, *known):
 
     # Equation (16)
     #
-    # c- o = Kcb * bnorm
+    # c - o = Kcb * bnorm
     # =>
     # c_1 - o_1 = Kcb * bnorm_1
     # c_2 - o_2 = Kcb * bnorm_2
@@ -137,7 +136,7 @@ def equations_system(variables, *known):
 
     #print('Equations'.format([eq1, eq2, eq3, eq4, eq5, eq6, eq8, eq9, eq10, eq11, eq12, eq13]))
 
-    return [eq1, eq2, eq3, eq4, eq5, eq6, eq8, eq9, eq10, eq11, eq12, eq13]
+    return [eq1, eq2, eq3, eq4, eq5, eq6, eq7, eq8, eq9, eq11, eq12, eq13]
 
 
 def calculate_c_wcs(u1_wcs, u2_wcs, o_wcs, l1_wcs, l2_wcs, R):
@@ -153,9 +152,9 @@ def calculate_c_wcs(u1_wcs, u2_wcs, o_wcs, l1_wcs, l2_wcs, R):
 
     known_data = (u1_wcs, u2_wcs, o_wcs, l1_wcs, l2_wcs, b_norm, R)
 
-    (c_1_0, c_2_0, c_3_0) = (3, 20, 55)
-    (q1_1_0, q1_2_0, q1_3_0) = (3.5, 20, 54)
-    (q2_1_0, q2_2_0, q2_3_0) = (2.5, 20, 54)
+    (c_1_0, c_2_0, c_3_0) = (3, -20, 55)
+    (q1_1_0, q1_2_0, q1_3_0) = (3.5, -20, 54)
+    (q2_1_0, q2_2_0, q2_3_0) = (2.5, -20, 54)
     Kq1_0 = 40
     Kq2_0 = 40
     Kcb_0 = 50

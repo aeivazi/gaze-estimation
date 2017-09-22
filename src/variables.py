@@ -16,15 +16,22 @@ v_ics = np.array([])
 #   * Z-axis is coming out of the scene plane
 #   * unit cm
 
+#light 1 position
 l1_wcs_dummy = np.array([10, -20, 0])
+#light 1 position
 l2_wcs_dummy = np.array([-10, -20, 0])
 
 focal_length = 1.2
+
+#nodal point of the camera position
 o_wcs_dummy = np.array([0, 0, 10])
 
+#glint center location of the left eye
 u1_wcs_dummy = np.array([-0.1, 0.6, o_wcs_dummy[2] - focal_length])
+#glint center location of the right eye
 u2_wcs_dummy = np.array([-0.15, 0.9, o_wcs_dummy[2] - focal_length])
 
+#pupil location
 v_wcs_dummy = np.array([1, -2, o_wcs_dummy[2] - focal_length])
 
 # eye parameters

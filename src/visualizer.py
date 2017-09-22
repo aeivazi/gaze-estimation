@@ -15,7 +15,6 @@ right_glint_projection = 'red'
 def draw_arrow(point, shift=(0, 0, 0), color='b', marker='*', size=20):
 
     line_array = [shift, shift + point]
-
     x, y, z = zip(*line_array)
     ax.plot(x, y, z, c=color)
     ax.scatter(*(line_array[1]), c='r', marker=marker, s=size)
@@ -23,25 +22,8 @@ def draw_arrow(point, shift=(0, 0, 0), color='b', marker='*', size=20):
 
 def visualize_b_norm():
 
-    l1_o = l1_wcs_dummy-o_wcs_dummy
-    u1_o = u1_wcs_dummy-o_wcs_dummy
-    l1_o_u1 = np.cross(l1_o, u1_o)
-
-    draw_arrow(l1_o, shift=o_wcs_dummy, color=left_light_color, marker='+', size=100)
-    draw_arrow(u1_o, shift=o_wcs_dummy, color=left_light_color, marker='+', size=100)
-    draw_arrow(10*normalize(l1_o_u1), shift=o_wcs_dummy, color='black', marker='+', size=100)
-
-    l2_o = l2_wcs_dummy - o_wcs_dummy
-    u2_o = u2_wcs_dummy - o_wcs_dummy
-    l2_o_u2 = np.cross(l2_o, u2_o)
-
-    draw_arrow(l2_o, shift=o_wcs_dummy, color=right_light_color, marker='+', size=100)
-    draw_arrow(u2_o, shift=o_wcs_dummy, color=right_light_color, marker='+', size=100)
-    draw_arrow(10*normalize(l2_o_u2), shift=o_wcs_dummy, color='black', marker='+', size=100)
-
-    b = np.cross(l2_o_u2, l1_o_u1)
-    b_norm = normalize(b)
-    draw_arrow(10*b_norm, shift=o_wcs_dummy, color='green', marker='+', size=100)
+    b_norm = calculate_b_norm(o_wcs_dummy, l1_wcs_dummy, l2_wcs_dummy, u1_wcs_dummy, u2_wcs_dummy)
+    draw_arrow(-50*b_norm, shift=o_wcs_dummy, color='green', marker='+', size=100)
 
     return
 
@@ -64,12 +46,19 @@ if __name__ == '__main__':
     visualize_input_data()
     visualize_b_norm()
 
-
     cornea_position = np.array([3, -20, 55])
-
     ax.scatter(*cornea_position, c='pink', marker='s', s=150)
     c_o = cornea_position - o_wcs_dummy
     draw_arrow(c_o, shift=o_wcs_dummy, color='pink', marker='+', size=100)
+
+    # test
+    # b_norm = [-0.12677659, 0.54714106, -0.82738404]
+    # c_o = np.array([0, 0, 10]) - np.array([3, -20, 55])
+    # kcb = calculate_magnitude(c_o)
+    # print(c_o)
+    # print(kcb)
+
+
 
     ax.set_xlabel('X Label')
     ax.set_ylabel('Y Label')
