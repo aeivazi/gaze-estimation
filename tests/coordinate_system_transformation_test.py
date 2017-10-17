@@ -18,7 +18,7 @@ class TestCSTransformation(unittest.TestCase):
         np.testing.assert_array_almost_equal(vector_3D, expected_value)
 
         x, y = (400, 425)
-        expected_value = (0, -0.6, -1.2)
+        expected_value = (0, 0.6, -1.2)
         vector_3D = transform_2D_to_3D(x, y, focal_length_cm, pixel_size_x_cm, pixel_size_y_cm,
                                        principal_point_x, principal_point_y)
         np.testing.assert_array_almost_equal(vector_3D, expected_value)
@@ -30,25 +30,25 @@ class TestCSTransformation(unittest.TestCase):
         np.testing.assert_array_almost_equal(vector_3D, expected_value)
 
         x, y = (650, 425)
-        expected_value = (1.2, -0.6, -1.2)
+        expected_value = (1.2, 0.6, -1.2)
         vector_3D = transform_2D_to_3D(x, y, focal_length_cm, pixel_size_x_cm, pixel_size_y_cm,
                                        principal_point_x, principal_point_y)
         np.testing.assert_array_almost_equal(vector_3D, expected_value)
 
         x, y = (150, 175)
-        expected_value = (-1.2, 0.6, -1.2)
+        expected_value = (-1.2, -0.6, -1.2)
         vector_3D = transform_2D_to_3D(x, y, focal_length_cm, pixel_size_x_cm, pixel_size_y_cm,
                                        principal_point_x, principal_point_y)
         np.testing.assert_array_almost_equal(vector_3D, expected_value)
 
         x, y = (0, 0)
-        expected_value = (-1.92, 1.44, -1.2)
+        expected_value = (-1.92, -1.44, -1.2)
         vector_3D = transform_2D_to_3D(x, y, focal_length_cm, pixel_size_x_cm, pixel_size_y_cm,
                                        principal_point_x, principal_point_y)
         np.testing.assert_array_almost_equal(vector_3D, expected_value)
 
         x, y = (800, 600)
-        expected_value = (1.92, -1.44, -1.2)
+        expected_value = (1.92, 1.44, -1.2)
         vector_3D = transform_2D_to_3D(x, y, focal_length_cm, pixel_size_x_cm, pixel_size_y_cm,
                                        principal_point_x, principal_point_y)
         np.testing.assert_array_almost_equal(vector_3D, expected_value)

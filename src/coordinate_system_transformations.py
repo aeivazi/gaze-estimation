@@ -14,8 +14,13 @@ def transform_2D_to_3D(x, y,
     Transforms 2D point on image coordinate system (ICS) to 3D point in camera coordinate system (CCS).
     Camera coordinate system is in units of length (e.g. cm). Image coordinate system is in pixel coordinate system.
 
+    Camera coordinate system has zero in center of the lens, x axis left, y - up, z from lens towards the object.
+    Image coordinate system has zero in the left-up corner of the image, x - right, y - down.
+
+    As the image is flipped, the center is located in down-right corner of the camera matrix, x - left, y - up.
+
     x_ccs = (x_ics - principal_point_x)*pixel_size_x
-    y_ccs = -(y_ics - principal_point_y)*pixel_size_y
+    y_ccs = (y_ics - principal_point_y)*pixel_size_y
     z_css = -focal_length
 
     :param
@@ -29,7 +34,7 @@ def transform_2D_to_3D(x, y,
     """
 
     x_ccs = (x - principal_point_x) * pixel_size_x
-    y_ccs = -(y - principal_point_y) * pixel_size_y
+    y_ccs = (y - principal_point_y) * pixel_size_y
     z_ccs = -focal_length
 
     return x_ccs, y_ccs, z_ccs
