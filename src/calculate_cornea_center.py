@@ -90,8 +90,13 @@ def calculate_cornea_center_wcs(u1_wcs, u2_wcs, o_wcs, l1_wcs, l2_wcs, R, initia
     known_data = (u1_wcs, u2_wcs, o_wcs, l1_wcs, l2_wcs, R)
     sol = opt.minimize(distance_between_corneas, initial_solution, known_data)
 
-    q1 = calculate_q(sol.x[0], o_wcs, u1_wcs)
-    cornea_center = calculate_c(q1, l1_wcs, o_wcs, R)
+    kq1, kq2 = sol.x
 
-    return cornea_center
+    q1 = calculate_q(kq1, o_wcs, u1_wcs)
+    c1 = calculate_c(q1, l1_wcs, o_wcs, R)
+
+    q2 = calculate_q(kq2, o_wcs, u2_wcs)
+    c2 = calculate_c(q2, l2_wcs, o_wcs, R)
+
+    return (c1 + c2)/2
 
