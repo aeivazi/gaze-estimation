@@ -35,7 +35,7 @@ class TestCalculateC(unittest.TestCase):
                                         R_const_cm,
                                         (Kq1_init, Kq2_init))
 
-        expected_value = np.array([1.468268, 1.99285342, 48.37022869])
+        expected_value = np.array([1.46826769, 1.99285342, 48.37022867])
         np.testing.assert_array_almost_equal(c, expected_value)
 
 if __name__ == '__main__':
