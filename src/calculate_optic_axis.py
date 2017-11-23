@@ -112,16 +112,14 @@ def calculate_p(r, c, R, K, iota):
     return p
 
 
-def calculate_optic_axis_unit_vector(o, r, c, R, K, n1, n2):
+def calculate_optic_axis_unit_vector(pupil_wcs, camera_wcs, cornea_wcs, R, K, n1, n2):
     """
 
     Calculates unit vector in the direction of the optic axis.
 
-    Formula 3.38 is used.
-
-    :param o: camera nodal point
-    :param r: pupil point of reflection
-    :param c: center of cornea curvature
+    :param pupil_wcs: pupil point of reflection
+    :param camera_wcs: camera nodal point
+    :param cornea_wcs: center of cornea curvature
     :param R: radius of cornea curvature
     :param K: distance between the center of the pupil and the center of corneal curvature
     :param n1: effective index of refraction of the aqueous humor and cornea combined (= 1.3375)
@@ -129,12 +127,16 @@ def calculate_optic_axis_unit_vector(o, r, c, R, K, n1, n2):
     :return: unit vector in the direction of the optic axis
     """
 
-    iota = calculate_iota(o, r, c, R, n1, n2)
+    kr = calculate_kr(camera_wcs, pupil_wcs, cornea_wcs, R)
 
-    p = calculate_p(r, c, R, K, iota)
+    r = calculate_r(kr, camera_wcs, pupil_wcs)
+
+    iota = calculate_iota(camera_wcs, r, cornea_wcs, R, n1, n2)
+
+    p = calculate_p(r, cornea_wcs, R, K, iota)
 
     #Formula 3.38
-    omega = (p - c)/np.linalg.norm(p - c)
+    omega = (p - cornea_wcs)/np.linalg.norm(p - cornea_wcs)
 
     return omega
 

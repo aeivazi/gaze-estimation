@@ -58,15 +58,15 @@ class TestCalculateOpticAxis(unittest.TestCase):
     def test_calculate_optic_axis_unit_vector(self):
 
         camera_position_wcs = np.array([0, 0, 0])
-        pupil_point_refraction = np.array([1.31681088, 2.02435105, 49.13473422])
+        pupil_center_wcs = np.array([-0.03216, -0.04944, -1.2])
         cornea_center = np.array([1.46826769, 1.99285342, 48.37022867])
         R_const = 0.78
         K_const = 0.42
         n1_const = 1.3375
         n2_const = 1
 
-        omega = calculate_optic_axis_unit_vector(
-            o=camera_position_wcs, r=pupil_point_refraction, c=cornea_center, R=R_const, K=K_const, n1=n1_const, n2=n2_const)
+        omega = \
+            calculate_optic_axis_unit_vector(pupil_center_wcs, camera_position_wcs, cornea_center, R_const, K_const, n1_const, n2_const)
 
         expected_value = np.array([-0.24600787, 0.03989999, 0.96844624])
         np.testing.assert_array_almost_equal(omega, expected_value)
