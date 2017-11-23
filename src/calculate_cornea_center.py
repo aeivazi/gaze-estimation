@@ -8,6 +8,8 @@
 from src.variables import *
 import scipy.optimize as opt
 
+from src.coordinate_system_transformations import transform_2D_to_3D
+
 
 def normalized(vector):
     """
@@ -27,6 +29,7 @@ def calculate_q(kq, o, u):
     :param u: image of corneal reflection center
     :return: point of reflection
     """
+
     return o + kq * normalized(o - u)
 
 
@@ -38,12 +41,13 @@ def calculate_c(q, l, o, R):
     :param q: point of reflection
     :param l: light coordinates
     :param o: nodal point of camera
-    :param o: nodal point of camera
+    :param R: radius of cornea surface
     :return: cornea center coordinates
     """
     l_q_unit = normalized(l - q)
     o_q_unit = normalized(o - q)
-    return q - R * (l_q_unit + o_q_unit)/np.linalg.norm(l_q_unit + o_q_unit)
+    c = q - R * normalized(l_q_unit + o_q_unit)
+    return c
 
 
 def distance_between_corneas(variables, *known):
@@ -66,6 +70,11 @@ def distance_between_corneas(variables, *known):
     cornea_center2 = calculate_c(q2, l2, o, R)
 
     distance_between_corneas = np.linalg.norm(cornea_center1 - cornea_center2)
+
+    # print('kq1 {}, kq2 {}'.format(kq1, kq2))
+    # print('q1 {}, q2 {}'.format(q1, q2))
+    # print('distance_between_corneas {}'.format(distance_between_corneas))
+
     return distance_between_corneas
 
 
@@ -99,4 +108,21 @@ def calculate_cornea_center_wcs(u1_wcs, u2_wcs, o_wcs, l1_wcs, l2_wcs, R, initia
     c2 = calculate_c(q2, l2_wcs, o_wcs, R)
 
     return (c1 + c2)/2
+
+
+def calculate_cornea_center(u1_ics, u2_ics, **kwargs):
+
+    u1_wcs = transform_2D_to_3D(*u1_ics, kwargs['focal_length_cm'], *kwargs['pixel_size_cm'], *kwargs['principal_point'])
+    u2_wcs = transform_2D_to_3D(*u2_ics, kwargs['focal_length_cm'], *kwargs['pixel_size_cm'], *kwargs['principal_point'])
+
+    Kq1_init = kwargs['distance_to_camera_cm']
+    Kq2_init = kwargs['distance_to_camera_cm']
+
+    return calculate_cornea_center_wcs(u1_wcs,
+                                       u2_wcs,
+                                       kwargs['camera_position_wcs'],
+                                       kwargs['light_1_wcs'],
+                                       kwargs['light_2_wcs'],
+                                       kwargs['R_cm'],
+                                       (Kq1_init, Kq2_init))
 
