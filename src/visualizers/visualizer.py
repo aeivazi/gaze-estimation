@@ -65,8 +65,6 @@ if __name__ == '__main__':
     # draw_line(q, c, magnitude_maltiply=1, color=left_light_color, marker='o', size=50)
 
 
-    -0.24600787, 0.03989999, 0.96844624
-
     ax.set_xlabel('X Label')
     ax.set_ylabel('Y Label')
     ax.set_zlabel('Z Label')
