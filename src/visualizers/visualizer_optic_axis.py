@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 from src.coordinate_system_transformations import transform_2D_to_3D
 from src.calculate_optic_axis import calculate_optic_axis_unit_vector, calculate_r, calculate_p
+from src.calculate_visual_axis import calculate_visual_axis_unit_vector, calculate_point_of_interest
 from src.calculate_cornea_center import calculate_cornea_center
 
 left_light_color = 'blue'
@@ -74,7 +75,7 @@ if __name__ == '__main__':
                                             *constants['pixel_size_cm'],
                                             *constants['principal_point'])
 
-    # Optic axis unit vector (iota)
+    # Optic axis unit vector
     optic_axis_unit_vector = calculate_optic_axis_unit_vector(pupil_on_image_wcs,
                                                               constants['camera_position_wcs'],
                                                               cornea_center_of_curvature_wcs,
@@ -92,7 +93,24 @@ if __name__ == '__main__':
 
     ax.scatter(*cornea_center_of_curvature_wcs, c=left_glint_projection, marker='o', s=50)
 
-    draw_unit_vector(optic_axis_unit_vector, starting_point=cornea_center_of_curvature_wcs, magnitude_maltiply=1, color='red')
+    draw_unit_vector(optic_axis_unit_vector, starting_point=cornea_center_of_curvature_wcs, magnitude_maltiply=10, color='red')
+
+    # Visual axis unit vector
+    visual_axis_unit_vector =\
+        calculate_visual_axis_unit_vector(optic_axis_unit_vector,
+                                          constants['alpha_right'],
+                                          constants['beta'])
+
+    draw_unit_vector(visual_axis_unit_vector, starting_point=cornea_center_of_curvature_wcs, magnitude_maltiply=10,
+                     color='green')
+
+    ## Point of interest
+    point_of_interest = calculate_point_of_interest(cornea_center_of_curvature_wcs,
+                                                    optic_axis_unit_vector,
+                                                    constants['z_shift'],
+                                                    constants['alpha_right'],
+                                                    constants['beta'])
+    ax.scatter(*point_of_interest, c='green', marker='*', s=50)
 
 
     ### Intermidiate points and unit vectors
