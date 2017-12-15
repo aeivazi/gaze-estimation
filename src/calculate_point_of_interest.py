@@ -5,6 +5,8 @@
 
 # @author: Anna Eivazi
 
+import numpy as np
+
 from src.coordinate_system_transformations import transform_2D_to_3D
 from src.calculate_cornea_center import calculate_cornea_center
 from src.calculate_optic_axis import calculate_optic_axis_unit_vector
@@ -23,8 +25,8 @@ def transform_to_screen_coordinate_system(center_of_cornea_curvature, visual_axi
     :param angles: rotations angles of the camera (units are radians)
     """
 
-    center_of_cornea_curvature_scs = transform_3D_to_3D(*center_of_cornea_curvature, *angles_rad, 0, 0, 0)
-    visual_axis_unit_vector_scs = transform_3D_to_3D(*visual_axis_unit_vector, *angles_rad, 0, 0, 0)
+    center_of_cornea_curvature_scs = transform_3D_to_3D(center_of_cornea_curvature, *angles_rad, np.array([0, 0, 0]))
+    visual_axis_unit_vector_scs = transform_3D_to_3D(visual_axis_unit_vector, *angles_rad, np.array([0, 0, 0]))
 
     return center_of_cornea_curvature_scs, visual_axis_unit_vector_scs
 

@@ -39,9 +39,9 @@ def transform_2D_to_3D(x, y,
 
     return x_ccs, y_ccs, z_ccs
 
-def transform_3D_to_3D(x, y, z,
+def transform_3D_to_3D(input_coordinates,
                        alpha_rad, beta_rad, gamma_rad,
-                       x_shift, y_shift, z_shift):
+                       shift_of_zero):
     """
     Projects 3D point in the input right handed coordinate system (CS_in) to
     the 3D point in the output right handed coordinate system (CS_out).
@@ -55,20 +55,16 @@ def transform_3D_to_3D(x, y, z,
 
 
     :param
-    x, y, z: 3D point in CS_in
+    input_coordinates: 3D point in CS_in
     gamma, beta, alpha: rotation angles of axis (radians)
-    x_shift, y_shift, z_shift: zero shift of coordinate systems
+    shift_of_zero: zero shift of coordinate systems
     :return:
-    x_out, y_out, x_out: 3D point in CS_out
+    output_coordinates: 3D point in CS_out
     """
 
     R = calculate_rotation_matrix_extrinsic(alpha_rad, beta_rad, gamma_rad)
 
-    vector_out = np.dot(R, [[x], [y], [z]]) + [[x_shift], [y_shift], [z_shift]]
+    output_coordinates = np.dot(R, input_coordinates) + shift_of_zero
 
-    x_out = vector_out[0, 0]
-    y_out = vector_out[1, 0]
-    z_out = vector_out[2, 0]
-
-    return x_out, y_out, z_out
+    return output_coordinates
 

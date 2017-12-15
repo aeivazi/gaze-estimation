@@ -24,8 +24,8 @@ class TestCalculateOpticAxis(unittest.TestCase):
             transform_to_screen_coordinate_system(cornea_center_of_curvature, visual_axis_unit_vector,
                                                   camera_rotation_angles)
 
-        np.testing.assert_array_almost_equal(cornea_center_of_curvature_scs, np.array([1.560139, 2.387901, 47.789887]))
-        np.testing.assert_array_almost_equal(visual_axis_unit_vector_scs, np.array([-0.296225, -0.192936, -0.935427]))
+        np.testing.assert_array_almost_equal(cornea_center_of_curvature_scs, np.array([1.560139, -4.170254,  47.667436]))
+        np.testing.assert_array_almost_equal(visual_axis_unit_vector_scs, np.array([-0.296225, -0.063196, -0.953025]))
 
     def test_calculate_point_of_interest(self):
 
