@@ -10,7 +10,6 @@ from src.calculate_cornea_center import calculate_cornea_center
 from src.calculate_optic_axis import calculate_optic_axis_unit_vector
 from src.calculate_visual_axis import calculate_visual_axis_unit_vector
 
-
 def calculate_point_of_interest(center_of_cornea_curvature, visual_axis_unit_vector, z_shift):
     """
     Calculates point of interest.
@@ -37,7 +36,7 @@ def get_point_of_interest(glint_1_ics, glint_2_ics, pupil_center_ics, **kwargs):
     :param glint_1_ics: glint 1 coordinates in Image Coordinate System
     :param glint_2_ics: glint 2 coordinates in Image Coordinate System
     :param pupil_center_ics: glint 2 coordinates in Image Coordinate System
-    :param kwargs: constants dictionary (check in point_of_interest_test.constants for an example)
+    :param kwargs: constants dictionary (check in integration_test.constants for an example)
     """
 
     cornea_center =  calculate_cornea_center(glint_1_ics, glint_2_ics, **kwargs)
