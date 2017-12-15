@@ -6,15 +6,7 @@ u2_ics = np.array([])
 v_ics = np.array([])
 
 
-# defined in WCS
-# WCS is:
-#   * right-handed
-#   * centered in on the middle and bottom of monitor
-#   * XY-plane is coincident with the scene plane (vertical plane, e.g. monitor),
-#   * X-axes is horizontal, and directed to left
-#   * Y-axes is vertical and directed down
-#   * Z-axis is coming out of the scene plane
-#   * unit cm
+
 
 #light 1 position
 l1_wcs_dummy = np.array([10, -20, 0])

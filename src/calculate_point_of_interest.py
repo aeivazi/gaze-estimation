@@ -9,6 +9,15 @@ from src.coordinate_system_transformations import transform_2D_to_3D
 from src.calculate_cornea_center import calculate_cornea_center
 from src.calculate_optic_axis import calculate_optic_axis_unit_vector
 from src.calculate_visual_axis import calculate_visual_axis_unit_vector
+from src.coordinate_system_transformations import transform_3D_to_3D
+
+
+def transform_to_screen_coordinate_system(center_of_cornea_curvature, visual_axis_unit_vector, angles):
+    center_of_cornea_curvature_scs = transform_3D_to_3D(center_of_cornea_curvature, *angles, 0, 0, 0)
+    visual_axis_unit_vector_scs = transform_3D_to_3D(visual_axis_unit_vector, *angles, 0, 0, 0)
+
+    return center_of_cornea_curvature_scs, visual_axis_unit_vector_scs
+
 
 def calculate_point_of_interest(center_of_cornea_curvature, visual_axis_unit_vector, z_shift):
     """
