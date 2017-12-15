@@ -70,6 +70,13 @@ class TestCSTransformation(unittest.TestCase):
         vector_2D = transform_3D_to_3D(x, y, z, alpha, beta, gamma, x_shift, y_shift, z_shift)
         np.testing.assert_array_almost_equal(vector_2D, expected_value)
 
+        x, y, z = (12, 6, 12)
+        alpha, beta, gamma = (90, 0, 0)
+        x_shift, y_shift, z_shift = (0, 0, 0)
+        expected_value = (12., -12.,   6.)
+        vector_2D = transform_3D_to_3D(x, y, z, alpha, beta, gamma, x_shift, y_shift, z_shift)
+        np.testing.assert_array_almost_equal(vector_2D, expected_value)
+
         x, y, z = (12, 6, 24)
         alpha, beta, gamma = np.radians((90, 90, 90))
         x_shift, y_shift, z_shift = (0, 0, 0)
