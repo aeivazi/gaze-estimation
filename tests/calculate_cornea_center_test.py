@@ -1,22 +1,7 @@
 import unittest
 import numpy as np
 import math
-from src.calculate_cornea_center import calculate_cornea_center_wcs, calculate_cornea_center, calculate_q, normalized, calculate_c
-
-constants = {'light_1_wcs': np.array([-23, 0, 0]),
-             'light_2_wcs': np.array([23, 0, 0]),
-             'camera_position_wcs': np.array([0, 0, 0]),
-             'focal_length_cm': 1.2,
-             'pixel_size_cm': (0.00048, 0.00048),
-             'principal_point': (400, 300),
-             'z_shift': -20,
-             'alpha_right': math.radians(-5),
-             'beta': math.radians(1.5),
-             'R_cm': 0.78,
-             'K_cm': 0.42,
-             'n1': 1.3375,
-             'n2': 1,
-             'distance_to_camera_cm': 55}
+from src.calculate_cornea_center import calculate_cornea_center, calculate_q, normalized, calculate_c
 
 class TestCalculateC(unittest.TestCase):
 
