@@ -86,14 +86,14 @@ def calculate_visual_axis_unit_vector(optic_axis_unit_vector, alpha, beta):
     Based on formula 2.30 calulations.
 
     :param optic_axis_unit_vector: unit vector of optic axis
-    :param z_shift: z offset of the screen
     :param alpha: horizontal angle of visial axis compare to optical
     :param beta: vertical angle of visial axis compare to optical
-    :return: coordinates of point of interest
+    :return: visual axis unit vector
     """
     nu_ecs = calculate_nu_ecs(alpha, beta)
 
     theta, phi, kappa = calculate_eye_angles(optic_axis_unit_vector)
+
     Reye = calculate_rotation_matrix(theta, phi, kappa)
 
     visual_axis_unit_vector = np.dot(Reye, nu_ecs)
