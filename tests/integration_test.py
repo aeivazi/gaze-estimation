@@ -130,9 +130,9 @@ class TestIntegration(unittest.TestCase):
 
 
 
-        # print('{} {} {}'.format(output[0], output[1], output[2]))
-        # print('{} {} {}'.format(output[3], output[4], output[5]))
-        # print('{} {} {}'.format(output[6], output[7], output[8]))
+        print('{} {} {}'.format(output[0], output[1], output[2]))
+        print('{} {} {}'.format(output[3], output[4], output[5]))
+        print('{} {} {}'.format(output[6], output[7], output[8]))
 
 
 if __name__ == '__main__':
