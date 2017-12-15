@@ -100,27 +100,3 @@ def calculate_visual_axis_unit_vector(optic_axis_unit_vector, alpha, beta):
 
     return visual_axis_unit_vector
 
-
-def calculate_point_of_interest(c, optic_axis_unit_vector, z_shift, alpha, beta):
-    """
-
-    Based on formula 2.31 calulations.
-
-
-    :param c: center of cornea curvature
-    :param optic_axis_unit_vector: unit vector of optic axis
-    :param z_shift: z offset of the screen
-    :param alpha: horizontal angle of visial axis compare to optical
-    :param beta: vertical angle of visial axis compare to optical
-    """
-
-    visual_axis_unit_vector = calculate_visual_axis_unit_vector(optic_axis_unit_vector, alpha, beta)
-
-    # Formula 3.61
-    kg = (z_shift - c[2]) / visual_axis_unit_vector[2]
-
-    # Formula 2.31
-    point_of_interest = c + kg * visual_axis_unit_vector
-
-    return point_of_interest
-

@@ -2,7 +2,8 @@ import unittest
 import numpy as np
 import math
 from collections import OrderedDict
-from src.point_of_interest import get_point_of_interest
+
+from src.calculate_point_of_interest import get_point_of_interest, calculate_point_of_interest
 
 constants = {
     'light_1_wcs': np.array([-23, 0, 0]),
@@ -26,6 +27,17 @@ constants = {
 class TestCalculateOpticAxis(unittest.TestCase):
 
     def test_calculate_point_of_interest(self):
+
+        cornea_center = np.array([1.56013955, 2.50435559, 47.78392692])
+        visual_axis_unit_vector = np.array([-0.296225, -0.195216, -0.934955])
+        z_shift = -20
+
+        point_of_interest = calculate_point_of_interest(cornea_center, visual_axis_unit_vector, z_shift)
+
+        expected_value = np.array([-19.916075, -11.64874 , -20.])
+        np.testing.assert_array_almost_equal(point_of_interest, expected_value)
+
+    def test_end_to_end_calculation(self):
 
         test_data = OrderedDict(
             {
@@ -116,9 +128,9 @@ class TestCalculateOpticAxis(unittest.TestCase):
 
 
 
-        print('{} {} {}'.format(output[0], output[1], output[2]))
-        print('{} {} {}'.format(output[3], output[4], output[5]))
-        print('{} {} {}'.format(output[6], output[7], output[8]))
+        # print('{} {} {}'.format(output[0], output[1], output[2]))
+        # print('{} {} {}'.format(output[3], output[4], output[5]))
+        # print('{} {} {}'.format(output[6], output[7], output[8]))
 
 
 if __name__ == '__main__':
