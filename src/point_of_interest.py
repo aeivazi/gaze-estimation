@@ -26,20 +26,12 @@ def get_point_of_interest(glint_1_ics, glint_2_ics, pupil_center_ics, **kwargs):
                                                               kwargs['n1'],
                                                               kwargs['n2'])
 
-    visual_axis_unit_vector = \
-        calculate_visual_axis_unit_vector(optic_axis_unit_vector,
-                                          kwargs['alpha_right'],
-                                          kwargs['beta'])
-
     point_of_interest = \
         calculate_point_of_interest(cornea_center,
-                                    visual_axis_unit_vector,
-                                    kwargs['z_shift'])
-
-    print('cornea_center: {}'.format(cornea_center))
-    print('optic_axis_unit_vector: {}'.format(optic_axis_unit_vector))
-    print('visual_axis_unit_vector: {}'.format(visual_axis_unit_vector))
-
+                                    optic_axis_unit_vector,
+                                    kwargs['z_shift'],
+                                    kwargs['alpha_right'],
+                                    kwargs['beta'])
 
     return point_of_interest
 
