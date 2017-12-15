@@ -5,7 +5,7 @@
 
 # @author: Anna Eivazi
 
-from src.variables import *
+import numpy as np
 import math
 
 
