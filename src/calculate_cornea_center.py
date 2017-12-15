@@ -5,7 +5,7 @@
 
 # @author: Anna Eivazi
 
-from src.variables import *
+import numpy as np
 import scipy.optimize as opt
 
 from src.coordinate_system_transformations import transform_2D_to_3D

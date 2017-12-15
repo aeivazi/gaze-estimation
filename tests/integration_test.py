@@ -2,7 +2,21 @@ import unittest
 import numpy as np
 import math
 from collections import OrderedDict
-from src.point_of_interest import get_point_of_interest
+
+from src.calculate_point_of_interest import get_point_of_interest
+
+# A note on coordinate systems.
+
+# In our code we defined World Coordinate System (WCS) = Camera Coordinate System.
+# WCS is a right-hand coordinate system, where axis defined as:
+# X-axis is horizontal pointing left,
+# Y-axis is vertical pointing up,
+# Z-axis points towards the subject.
+# Unit is centimeter.
+#
+#
+# Screen coordinate system (SCS) has a zero in nodal point of camera, but aligned with vertical screen.
+# If camera would be installed without angles, it would mean SCS = WSC = CCS.
 
 constants = {
     'light_1_wcs': np.array([-23, 0, 0]),
@@ -19,13 +33,13 @@ constants = {
     'n1': 1.3375,
     'n2': 1,
     'distance_to_camera_cm': 52,
-    'camera_angle': math.radians(8)
+    'camera_rotation': np.array([math.radians(8), 0, 0]) # rotation only over X axis
 }
 
 
-class TestCalculateOpticAxis(unittest.TestCase):
+class TestIntegration(unittest.TestCase):
 
-    def test_calculate_point_of_interest(self):
+    def test_end_to_end_calculations(self):
 
         test_data = OrderedDict(
             {
@@ -116,9 +130,9 @@ class TestCalculateOpticAxis(unittest.TestCase):
 
 
 
-        print('{} {} {}'.format(output[0], output[1], output[2]))
-        print('{} {} {}'.format(output[3], output[4], output[5]))
-        print('{} {} {}'.format(output[6], output[7], output[8]))
+        # print('{} {} {}'.format(output[0], output[1], output[2]))
+        # print('{} {} {}'.format(output[3], output[4], output[5]))
+        # print('{} {} {}'.format(output[6], output[7], output[8]))
 
 
 if __name__ == '__main__':

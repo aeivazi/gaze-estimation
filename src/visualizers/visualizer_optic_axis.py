@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 
 from src.coordinate_system_transformations import transform_2D_to_3D
 from src.calculate_optic_axis import calculate_optic_axis_unit_vector, calculate_r, calculate_p
-from src.calculate_visual_axis import calculate_visual_axis_unit_vector, calculate_point_of_interest
+from src.calculate_visual_axis import calculate_visual_axis_unit_vector
 from src.calculate_cornea_center import calculate_cornea_center
+from src.calculate_point_of_interest import calculate_point_of_interest
 
 left_light_color = 'blue'
 right_light_color = 'red'
@@ -106,10 +107,8 @@ if __name__ == '__main__':
 
     ## Point of interest
     point_of_interest = calculate_point_of_interest(cornea_center_of_curvature_wcs,
-                                                    optic_axis_unit_vector,
-                                                    constants['z_shift'],
-                                                    constants['alpha_right'],
-                                                    constants['beta'])
+                                                    visual_axis_unit_vector,
+                                                    constants['z_shift'])
     ax.scatter(*point_of_interest, c='green', marker='*', s=50)
 
 

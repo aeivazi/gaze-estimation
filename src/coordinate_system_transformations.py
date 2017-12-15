@@ -3,7 +3,7 @@
 # @author: Anna Eivazi
 
 import numpy as np
-from .rotation_matrix import calculate_rotation_matrix_extrinsic
+from src.rotation_matrix import calculate_rotation_matrix_extrinsic
 
 
 def transform_2D_to_3D(x, y,
