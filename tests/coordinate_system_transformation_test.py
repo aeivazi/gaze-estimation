@@ -1,6 +1,5 @@
 import unittest
 import numpy as np
-import math
 
 from src.coordinate_system_transformations import transform_2D_to_3D, transform_3D_to_3D
 
