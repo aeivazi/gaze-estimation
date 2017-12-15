@@ -2,7 +2,7 @@ from math import cos, sin, radians
 import numpy as np
 
 
-def calculate_rotation_matrix_extrinsic(alpha_degree, beta_degree, gamma_degree):
+def calculate_rotation_matrix_extrinsic(alpha_rad, beta_rad, gamma_rad):
     """
     Applies extrinsic rotation defined by Euler angles alpha, beta, gamma.
     Counter-clockwise transformation for angles is used.
@@ -30,16 +30,12 @@ def calculate_rotation_matrix_extrinsic(alpha_degree, beta_degree, gamma_degree)
     then beta around y and then alpha around x.
 
     :param
-    alpha: rotation around x axis (degrees)
-    beta:  rotation around y axis (degrees)
-    gamma: rotation around z axis (degrees)
+    alpha: rotation around x axis (radians)
+    beta:  rotation around y axis (radians)
+    gamma: rotation around z axis (radians)
     :return:
     3x3 rotational matrix
     """
-
-    alpha_rad = radians(alpha_degree)
-    beta_rad  = radians(beta_degree)
-    gamma_rad = radians(gamma_degree)
 
     Rx = [[1,    0,             0    ],
           [0, cos(alpha_rad), -sin(alpha_rad)],

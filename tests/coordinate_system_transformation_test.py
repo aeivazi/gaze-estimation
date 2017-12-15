@@ -1,5 +1,7 @@
 import unittest
 import numpy as np
+import math
+
 from src.coordinate_system_transformations import transform_2D_to_3D, transform_3D_to_3D
 
 
@@ -62,21 +64,21 @@ class TestCSTransformation(unittest.TestCase):
         np.testing.assert_array_almost_equal(vector_2D, expected_value)
 
         x, y, z = (12, 6, 12)
-        alpha, beta, gamma = (0, 0, 0)
+        alpha, beta, gamma = np.radians((0, 0, 0))
         x_shift, y_shift, z_shift = (0, 0, -12)
         expected_value = (12, 6, 0)
         vector_2D = transform_3D_to_3D(x, y, z, alpha, beta, gamma, x_shift, y_shift, z_shift)
         np.testing.assert_array_almost_equal(vector_2D, expected_value)
 
         x, y, z = (12, 6, 24)
-        alpha, beta, gamma = (90, 90, 90)
+        alpha, beta, gamma = np.radians((90, 90, 90))
         x_shift, y_shift, z_shift = (0, 0, 0)
         expected_value = (24, 6, -12)
         vector_2D = transform_3D_to_3D(x, y, z, alpha, beta, gamma, x_shift, y_shift, z_shift)
         np.testing.assert_array_almost_equal(vector_2D, expected_value)
 
         x, y, z = (12, 6, 24)
-        alpha, beta, gamma = (90, 90, 90)
+        alpha, beta, gamma = np.radians((90, 90, 90))
         x_shift, y_shift, z_shift = (5, -10, 10)
         expected_value = (29, -4, -2)
         vector_2D = transform_3D_to_3D(x, y, z, alpha, beta, gamma, x_shift, y_shift, z_shift)
